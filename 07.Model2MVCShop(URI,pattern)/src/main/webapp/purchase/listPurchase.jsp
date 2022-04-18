@@ -18,7 +18,7 @@ function fncGetPurchaseList(currentPage){
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/purchase/listPurchase" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -125,11 +125,11 @@ function fncGetPurchaseList(currentPage){
 				${status.count }
 			</td>
 			<td></td>
-			<td><a href="/getPurchase.do?tranNo=${i.tranNo }">${i.purchaseProd.prodNo }</a></td>
+			<td><a href="/purchase/getPurchase/${i.tranNo }">${i.purchaseProd.prodNo }</a></td>
 			<c:if test="${user.role eq 'admin'}">
 			<td></td>
 				<td align="left">
-				<a href="/getUser.do?userId=${i.buyer.userId }">${i.buyer.userId }</a>
+				<a href="/user/getUser?userId=${i.buyer.userId }">${i.buyer.userId }</a>
 				</td>
 			</c:if>
 			<td align="left"></td>
@@ -158,13 +158,13 @@ function fncGetPurchaseList(currentPage){
 			<td align="left">
 			 
 			 	<c:if test="${ i.tranCode.trim() eq '1' && user.role eq 'user'}">
-			 		<a href="/updatePurchaseView.do?tranNo=${i.tranNo }">구매 상세정보 수정하기</a>
+			 		<a href="/purchase/updatePurchase/${i.tranNo }">구매 상세정보 수정하기</a>
 			 	</c:if>
 			 	<c:if test="${ i.tranCode.trim() eq '2' && user.role eq 'user'}">
-			 		<a href="/updateTranCode.do?tranNo=${i.tranNo }&tranCode=3">도착완료 확인하기</a>
+			 		<a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=3">도착완료 확인하기</a>
 			 	</c:if>
 			 	<c:if test="${ i.tranCode.trim() eq '1' && user.role eq 'admin'}">
-			 		<a href="/updateTranCode.do?tranNo=${i.tranNo }&tranCode=2">배송하기</a>
+			 		<a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=2">배송하기</a>
 			 	</c:if>
 			</td>
 	</c:forEach>

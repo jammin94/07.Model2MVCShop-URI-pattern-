@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import com.model2.mvc.service.product.ProductService;
 
 //==> 회원관리 Controller
 @Controller
+@RequestMapping("/product/*")
 public class ProductController {
 	
 	///Field
@@ -52,10 +54,10 @@ public class ProductController {
 
 		System.out.println("/product/addProduct : GET");
 		
-		return "redirect:/product/addProductView";
+		return "redirect:/product/addProductView.jsp";
 	}
 	
-	
+		
 	@RequestMapping( value="addProduct", method=RequestMethod.POST )
 	public String addProduct( @ModelAttribute("product") Product product ) throws Exception {
 
@@ -63,14 +65,13 @@ public class ProductController {
 		//Business Logic
 		productService.addProduct(product);
 		int prodNo=productService.getProductNo(product.getProdName());
-
 		
-		return "redirect:/product/getProduct?prodNo="+prodNo;
+		return "redirect:/product/getProduct/"+prodNo;
 	}
 	
 	
-	@RequestMapping( value="getProduct", method=RequestMethod.GET )
-	public String getProduct(@RequestParam("prodNo") String prodNo,HttpServletRequest request,HttpServletResponse response, Model model ) throws Exception {
+	@RequestMapping( value="getProduct/{prodNo}", method=RequestMethod.GET )
+	public String getProduct(@PathVariable String prodNo,HttpServletRequest request,HttpServletResponse response, Model model ) throws Exception {
 	
 		System.out.println("/product/getProduct : GET");
 		//Business Logic
@@ -96,12 +97,12 @@ public class ProductController {
 		
 		response.addCookie(cookie);
 		
-		return "product/getProduct.jsp";
+		return "/product/getProduct.jsp";
 		
 	}
 	
-	@RequestMapping( value="updateProduct", method=RequestMethod.GET )
-	public String UpdateProductView( @RequestParam("prodNo") String prodNo, Model model ) throws Exception {
+	@RequestMapping( value="updateProduct/{prodNo}", method=RequestMethod.GET )
+	public String UpdateProductView( @PathVariable String prodNo, Model model ) throws Exception {
 
 		System.out.println("/product/updateProduct : GET");
 		//Business Logic
@@ -119,7 +120,7 @@ public class ProductController {
 		//Business Logic
 		productService.updateProduct(product);
 
-		return "redirect:/getProduct.do?prodNo="+productService.getProductNo(product.getProdName());
+		return "redirect:/product/getProduct/"+productService.getProductNo(product.getProdName());
 	}
 	
 	@RequestMapping("/listProduct")
@@ -142,7 +143,6 @@ public class ProductController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		model.addAttribute("menu", "search");
 		
 		return "forward:/product/listProduct.jsp";
 	}
