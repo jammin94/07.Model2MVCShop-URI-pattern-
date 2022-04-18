@@ -55,7 +55,7 @@
 		<td></td>
 	</tr>
 	<tr/>
-	<a href="/listPurchase.do">확인</a>
+	<a href="/purchase/listPurchase">확인</a>
 </table>
 </form>
 

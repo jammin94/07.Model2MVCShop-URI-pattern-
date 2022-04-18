@@ -22,7 +22,7 @@ function fncGetProductList(currentPage){
 <div style="width:98%; margin-left:10px;">
 
  
- <form name="detailForm" action="/listProduct?menu=${menu eq 'search'?'search':'manage'}" method="post">
+ <form name="detailForm" action="/product/listProduct" method="post">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
 		<td width="15" height="37">
@@ -33,7 +33,7 @@ function fncGetProductList(currentPage){
 				<tr>
 					<td width="93%" class="ct_ttl01">
 
-					 ${menu eq 'search'?'상품검색':'판매상품관리'}
+					상품검색
 					 
 					</td>
 				</tr>
@@ -129,14 +129,7 @@ function fncGetProductList(currentPage){
 		<tr class="ct_list_pop">
 		<td align="center">${status.count}</td>
 		<td></td>
-			<c:if test="${menu eq 'search'}">
-				<td align="left"><a href="/product/getProduct?prodNo=${i.prodNo}&menu=search">${i.prodName}</a></td>
-			</c:if>
-			
-			<c:if test="${menu eq 'manage'}">
-				<td align="left"><a href="/product/updateProduct?prodNo=${i.prodNo }">${i.prodName }</a></td>
-			</c:if>
-	
+				<td align="left"><a href="/product/getProduct/${i.prodNo}">${i.prodName}</a></td>
 		<td></td>
 		<td align="left">${i.price}</td>
 		<td></td>
