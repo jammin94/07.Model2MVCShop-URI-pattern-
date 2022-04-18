@@ -15,7 +15,16 @@ public class Search {
 	//==> ÂüÁ¶
 	private int endRowNum;
 	private int startRowNum;
+	private String order;
 	
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
 	///Constructor
 	public Search() {
 	}
