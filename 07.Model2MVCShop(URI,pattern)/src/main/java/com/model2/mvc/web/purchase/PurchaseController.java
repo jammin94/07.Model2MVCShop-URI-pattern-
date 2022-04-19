@@ -97,7 +97,7 @@ public class PurchaseController {
 	}
 	
 	
-	@RequestMapping("/purchase/getPurchase/{tranNo}")
+	@RequestMapping(value="/getPurchase/{tranNo}", method=RequestMethod.GET)
 	public ModelAndView getPurchase( @PathVariable int tranNo ) throws Exception {
 
 		System.out.println("/purchase/getPurchase : GET");
@@ -157,15 +157,15 @@ public class PurchaseController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/updatePurchase", method=RequestMethod.GET )
-	public ModelAndView updatePurchaseView( @ModelAttribute("purchase") Purchase purchase ) throws Exception {
+	@RequestMapping(value="/updatePurchase/{tranNo}", method=RequestMethod.GET )
+	public ModelAndView updatePurchaseView( @PathVariable int tranNo ) throws Exception {
 		
 		System.out.println("/purchase/updatePurchase : GET");
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("purchase",purchaseService.getPurchase(purchase.getTranNo()));
+		modelAndView.addObject("purchase",purchaseService.getPurchase(tranNo));
 		
-		modelAndView.setViewName("/purchase/updatePurchase.jsp");
+		modelAndView.setViewName("/purchase/updatePurchaseView.jsp");
 		
 		return modelAndView;
 	
@@ -179,7 +179,7 @@ public class PurchaseController {
 		purchaseService.updatePurchase(purchase);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/getPurchase/"+purchase.getTranNo());
+		modelAndView.setViewName("redirect:/purchase/getPurchase/"+purchase.getTranNo());
 		
 		return modelAndView;
 	

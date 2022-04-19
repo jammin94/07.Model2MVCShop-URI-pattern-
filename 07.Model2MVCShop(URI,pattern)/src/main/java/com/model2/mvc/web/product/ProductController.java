@@ -86,6 +86,7 @@ public class ProductController {
 			for (Cookie c : cookies) {
 				if (c.getName().equals("history")) {
 					cookie=new Cookie("history",c.getValue()+"!"+prodNo);
+					System.out.println(cookie.getName());
 					System.out.println(cookie.getValue());
 				}	
 			}

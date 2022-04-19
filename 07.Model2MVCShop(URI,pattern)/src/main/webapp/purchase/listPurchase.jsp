@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
 <html>
 <head>
 
@@ -26,7 +27,6 @@ function fncGetPurchaseList(currentPage){
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<%-- <td width="93%" class="ct_ttl01"><%=role.equals("admin")?"배송처리":"구매목록" %> </td> --%>
 					<td width="93%" class="ct_ttl01">${user.role eq 'admin' ? '배송처리' : '구매목록'} </td>
 				</tr>
 			</table>
@@ -125,7 +125,7 @@ function fncGetPurchaseList(currentPage){
 				${status.count }
 			</td>
 			<td></td>
-			<td><a href="/purchase/getPurchase/${i.tranNo }">${i.purchaseProd.prodNo }</a></td>
+			<td><a href="/product/getProduct/${i.purchaseProd.prodNo }">${i.purchaseProd.prodNo }</a></td>
 			<c:if test="${user.role eq 'admin'}">
 			<td></td>
 				<td align="left">
@@ -156,16 +156,19 @@ function fncGetPurchaseList(currentPage){
 				
 			</td>
 			<td align="left">
-			 
+			 	<c:if test="${user.role eq 'user'}">
+			 		 <a href="/purchase/getPurchase/${i.tranNo }">구매 상세정보 조회</a>
+			 	</c:if>
 			 	<c:if test="${ i.tranCode.trim() eq '1' && user.role eq 'user'}">
-			 		<a href="/purchase/updatePurchase/${i.tranNo }">구매 상세정보 수정하기</a>
+			 		 / <a href="/purchase/updatePurchase/${i.tranNo }">구매 상세정보 수정하기</a>
 			 	</c:if>
 			 	<c:if test="${ i.tranCode.trim() eq '2' && user.role eq 'user'}">
-			 		<a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=3">도착완료 확인하기</a>
+			 		 / <a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=3">도착완료 확인하기</a>
 			 	</c:if>
 			 	<c:if test="${ i.tranCode.trim() eq '1' && user.role eq 'admin'}">
-			 		<a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=2">배송하기</a>
+			 		 / <a href="/purchase/updateTranCode?tranNo=${i.tranNo }&tranCode=2">배송하기</a>
 			 	</c:if>
+			 	
 			</td>
 	</c:forEach>
 	</tr>
